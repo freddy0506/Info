@@ -1,0 +1,12 @@
+Stufe;Name;Fach;Art;Nummer;Lehrer;Raum
+Q1;CH-L1;Chemie;Leistungskurs;1;Om;001
+Q1;GE-L1;Geschichte;Leistungskurs;1;Km;126
+Q1;E5-L1;Englisch;Leistungskurs;1;Sa;138
+Q1;EK-L2;Erdkunde;Leistungskurs;2;Hl;032
+Q1;M-L2;Mathe;Leistungskurs;2;Ke;130
+Q1;BI-G2;Biologie;Grundkurs;2;He;038
+Q1;M-G2;Mathe;Grundkurs;2;Kl;130
+Q1;EK-G1;Erdkunde;Grundkurs;1;Rl;125
+Q1;L6-G1;Latein;Grundkurs;1;Hr;138
+Q1;D-G3;Deutsch;Grundkurs;3;Hz;129
+Q1;Li_E;English Drama Group;Literaturkurs;0;Sa;Aula HS

@@ -1,0 +1,83 @@
+Arend, Brigitta 	Ar 	M, Ek
+Beckl, Sven 	Bc 	Bi, Sp
+Beckmann, Katharina 	Bs 	E, Sp
+Berhörster, Katharina 	Bs 	E, Sp
+Biele, Dr. Wolfgang 	Bl 	Ph, Ch
+Birwe, Anne 	Bw 	E, Sw
+Blumenthal, Stefanie 	Bt 	GE, kR
+Bölt, Julia 	Bö 	D, Ek
+Bremer, Heike 	Bm 	Bi, D
+Brinkmann, Tobias 	Bk 	Sp
+Brzozon, Sandra 	Bz 	Ek, D
+Büteröwe, Daniel 	Be 	M, Sp
+Cati, Jana 	Ca 	E, M
+Christ, Irina 	Ch 	E, F
+Diederich, Daniela 	Di 	E, D
+Dreismann, Gisela 	Dm 	D, kR
+Driller, Lena 	Dl 	E, F
+Eickhoff, Nina 	R 	L, Ge
+Feldmann, Liisa 	Fe 	E, D, Ku
+Frevert, Thorsten 	Fv 	D, Sw, Lit
+Freyer, Susanne 	Fr 	Ku
+Friederizi, Simone 	Fz 	M, Sp
+Göbel, Cord 	Goe 	M, Ph
+Gundlach, Franziska 	Gu 	Bi, D
+Hanun, Georgette 	Ha 	D, Bi
+Hecker, Marc 	Hc 	Ph, Sp
+Heese, Christina 	Hee 	E, eR
+Helmdach, Dorothee 	Hm 	E, Ge
+Hemkentokrax, Norbert 	Hx 	Ek, kR
+Henning, Silvia 	Hg 	Mu, D
+Herbort, Lena 	He 	Bi, D
+Hermeler, Matthias 	Her 	M, Ch
+Herrbold, Martin 	Hb 	L, Mu
+Herrbold, Ursula 	Hr 	L, D
+Hochartz, Maike 	Hz 	F, D
+Homberg, Wibke 	Ho 	Mu, E
+Hüls, Martina 	Hs 	E, Ek
+Hülsmann, Valentin 	Hl 	Ek, Bi
+Jäger, Kathrin 	Jg 	E, F
+Jansen, Philipp Gunnar 	Jn 	If, D
+Kalke, Stephanie 	Ke 	Bi, M
+Klösener, Anne Felicia 	Kl 	Bi, M
+Knuth, Britta 	Kn 	E, Bi
+Kößmeier, Barbara 	Km 	Ge, L
+Kötter, Jan-Henning 	Kr 	E, Sw
+Kraemer, Dr. Florian 	Ka 	Pl, Mu
+Krüger, Carsten 	Kg 	L, Ge, Lit
+Labusch, Daniel 	La 	Ge, E
+Linneweber, Nils 	Li 	M, D
+Lohde, Dustin 	Lo 	M, Ph
+Lücht-Meder, Lena 	Lm 	Ku
+Lücker, Frank 	Lc 	Ge, L, D
+Lükewille, Ursula 	Lue 	L, D, PP
+Malatyali, Hülya 	Ma 	M, If
+Naundorf, Helga 	Na 	M, Sp
+Oberndörfer, Marion 	Ob 	M, Bi
+Ordelheide, Florian 	Or 	Bi, Sp
+Ostermann, Marianne 	Om 	Bi, Ch
+Pötting, Kilian 	Poe 	kR, D, Lit
+Pohlmann, Jan 	Pm 	D, Sp
+Priever, Dr. Andreas 	Pr 	Ku, Ge
+Radke, Frank 	Ra 	D, PI, PP, eR
+Rahmann, Manuel 	Rm 	D, kR
+Ritter-Zajonz, Bianca 	Za 	E, kR
+Rolf, Dr. Ares 	Ro 	M, Mu
+Rolf, Silke 	Rl 	Ek
+Salas Poblete, Paula 	Sa 	E, GE, Lit
+Schilder, Nina 	Sd 	D, Sw
+Schmidt, Dominik 	Si 	eR, F
+Schneider, Stephanie 	Snd 	Ge, Sw
+Schnitker-Schmidt, Helena 	Sn 	F, Sp
+Schollmeier, Anja 	So 	Pl, D
+Sprink, Wolfgang 	Sk 	D, kR, Lit
+Stuckenbrock, Andrea 	Su 	D, Ge, Lit
+Stuckenbrock, Norbert 	St 	Sw
+Stuke, Eike-Andreas 	Se 	M, Ge
+Timmermann, Sascha 	Ti 	Ch, Sp
+Vach, Lukas Manuel 	Va 	Bi, Sp
+Wagener, Dirk 	Wg 	D, Ge, eR
+Winkler, Isabell Marianne 	Ln 	E, Sp
+Yamac, Gevriye 	Ya 	syR
+Zenses, Nadine 	Ze 	D, Sw
+Zimmermann, Kristin 	Zi 	K, F
