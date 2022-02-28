@@ -12,17 +12,18 @@ cur = con.cursor()
 class root():
     path = "/"
 
-    def __init__(self, intro, optionName, pathName="/", type="") -> None:
+    def __init__(self, intro, optionName, pathName="/", type="", title="Main") -> None:
         self.optionName = optionName
         self.pathName = pathName
         self.intro = intro
         self.nextRoots = []
         self.type = type
+        self.title = title
 
     def printHead(self):
         os.system("clear")
-        tprint("SQL", font="alpha")
-        print("Mit diesem Terminal kann man mit der Datenbank kommunizieren.")
+        tprint(self.title, font="big")
+        print("Mit diesem Terminal kann man mit der Datenbank kommunizieren. Geben Sie die Nummer der gewünschten Option ein.")
 
 
     def getOptionName(self):
@@ -71,7 +72,7 @@ class root():
 
 mainRoot = root("Sie haben diese Optionen: ", "")
 
-selectTable = root("Welche Tabelle soll aus gegeben werden? ", "Gesamte Tabellen ausgeben" , "selectTable")
+selectTable = root("Welche Tabelle soll aus gegeben werden? ", "Gesamte Tabellen ausgeben" , "selectTable", "", "Tabellen")
 selectTable.addRoot(root("", "Schüler", "schueler", "selectT"))
 selectTable.addRoot(root("", "Kurse", "kurse", "selectT"))
 selectTable.addRoot(root("", "Stunden Zeiten", "stunden", "selectT"))
@@ -79,20 +80,27 @@ selectTable.addRoot(root("", "Lehrer", "lehrer", "selectT"))
 selectTable.addRoot(root("", "Stunden-Kurse Beziehung", "stundenKurs", "selectT"))
 selectTable.addRoot(root("", "Schüler-Kurse Beziehung", "schuelerKurs", "selectT"))
 
-showStundenplan = root("Von wem wollen Sie den Stundenplan sehen? ", "Individueller Stundenplan", "stundenplan")
+showStundenplan = root("Von wem wollen Sie den Stundenplan sehen? ", "Individueller Stundenplan", "stundenplan", "", "Stundenplan")
 cur.execute("SELECT * FROM schueler;")
 for s in cur.fetchall():
     showStundenplan.addRoot(root("",s[1] + " " + s[2], s[1] + "+" + s[2], "showSt"))
 
-kursListen = root("Von welchem Kurs wollen Sie die Kursliste sehen?", "Kurslisten", "kursListen", "kuLists")
+kursListen = root("Von welchem Kurs wollen Sie die Kursliste sehen?", "Kurslisten", "kursListen", "kuLists", "Kurse")
 cur.execute("SELECT * FROM Kurse;")
 for k in cur.fetchall():
     #print(k)
     kursListen.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuLists"))
 
+kursZeiten = root("Hier können die Zeiten der Kurse abgerufen werden", "Kurszeiten", "kursZeiten", "", "Zeiten")
+cur.execute("SELECT * FROM Kurse;")
+for k in cur.fetchall():
+    #print(k)
+    kursZeiten.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuZeiten"))
+
 mainRoot.addRoot(showStundenplan)
 mainRoot.addRoot(selectTable)
 mainRoot.addRoot(kursListen)
+mainRoot.addRoot(kursZeiten)
 
 def selectStundeplan(name):
     cur.execute("""
@@ -120,10 +128,24 @@ def selectKursTeilnehmer(name):
         ON schueler.SID = schuelerKurs.SID
         JOIN kurse
         ON schuelerKurs.name = kurse.name AND schuelerKurs.stufe = kurse.stufe
-    WHERE kurse.name = '""" +  name[0] + """' and kurse.stufe = '""" +  name[1] + """';
+    WHERE kurse.name = '""" +  name[0] + """' AND kurse.stufe = '""" +  name[1] + """';
     """)
     
     print(tabulate(cur.fetchall(), headers=["Vorname", "Nachname"] , tablefmt="pretty"))
+
+def stundenZeiten(name):
+    print(name[0] + ":")
+    cur.execute("""
+    SELECT stunden.tag, stunden.vonS, stunden.bisS
+    FROM kurse
+        JOIN stundenKurs
+        ON kurse.name = stundenKurs.name
+        JOIN stunden
+        ON stundenKurs.StId = stunden.StId
+    WHERE kurse.name = '""" +  name[0] + """' AND kurse.stufe = '""" +  name[1] + """';
+    """)
+    
+    print(tabulate(cur.fetchall(), headers=["Wochentag", "Von", "Bis"] , tablefmt="pretty"))
 
 def selectTabelle(name):
     cur.execute("SELECT * FROM " + name + ";")
@@ -147,5 +169,7 @@ while True:
         selectStundeplan(choice[0].split("+"))
     elif choice[1] == "kuLists":
         selectKursTeilnehmer(choice[0].split("+"))
+    elif choice[1] == "kuZeiten":
+        stundenZeiten(choice[0].split("+"))
         
     showRestart()
