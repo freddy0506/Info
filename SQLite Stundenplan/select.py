@@ -62,7 +62,7 @@ class root():
                         return (["back"])
                     else:
                         choice = self.nextRoots[int(choice)].askOption()
-                        print (choice[0])
+                        #print (choice[0])
                         if choice[0] == "back":
                             #print("selfAsk")
                             return self.askOption()
@@ -79,15 +79,20 @@ selectTable.addRoot(root("", "Lehrer", "lehrer", "selectT"))
 selectTable.addRoot(root("", "Stunden-Kurse Beziehung", "stundenKurs", "selectT"))
 selectTable.addRoot(root("", "Schüler-Kurse Beziehung", "schuelerKurs", "selectT"))
 
-showStundenplan = root("Von wem wollen sie den Stundenplan sehen? ", "Individueller Stundenplan", "stundenplan")
+showStundenplan = root("Von wem wollen Sie den Stundenplan sehen? ", "Individueller Stundenplan", "stundenplan")
 cur.execute("SELECT * FROM schueler;")
 for s in cur.fetchall():
-    #print(s)
     showStundenplan.addRoot(root("",s[1] + " " + s[2], s[1] + "+" + s[2], "showSt"))
 
+kursListen = root("Von welchem Kurs wollen Sie die Kursliste sehen?", "Kurslisten", "kursListen", "kuLists")
+cur.execute("SELECT * FROM Kurse;")
+for k in cur.fetchall():
+    #print(k)
+    kursListen.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuLists"))
 
-mainRoot.addRoot(selectTable)
 mainRoot.addRoot(showStundenplan)
+mainRoot.addRoot(selectTable)
+mainRoot.addRoot(kursListen)
 
 def selectStundeplan(name):
     cur.execute("""
@@ -115,25 +120,32 @@ def selectKursTeilnehmer(name):
         ON schueler.SID = schuelerKurs.SID
         JOIN kurse
         ON schuelerKurs.name = kurse.name AND schuelerKurs.stufe = kurse.stufe
-    WHERE kurse.name = """ +  name + """;
+    WHERE kurse.name = '""" +  name[0] + """' and kurse.stufe = '""" +  name[1] + """';
     """)
     
-    for row in cur.fetchall():
-        print(" ".join(str(i) for i in row))
+    print(tabulate(cur.fetchall(), headers=["Vorname", "Nachname"] , tablefmt="pretty"))
 
 def selectTabelle(name):
     cur.execute("SELECT * FROM " + name + ";")
     print(tabulate(cur.fetchall(), tablefmt="pretty"))
 
+def showRestart():
+    input("\n\n Weitersuchen? [enter]")
 
-# Ask the User what to do
-choice = mainRoot.askOption()
-#print(choice)
 
-if choice[0] == "back":
-    print("Quitting...")
-    quit()
-elif choice[1] == "selectT":
-    selectTabelle(choice[0])
-elif choice[1] == "showSt":
-    selectStundeplan(choice[0].split("+"))
+
+while True:
+    # Ask the User what to do
+    choice = mainRoot.askOption()
+    #print(choice)
+    if choice[0] == "back":
+        print("Quitting...")
+        quit()
+    elif choice[1] == "selectT":
+        selectTabelle(choice[0])
+    elif choice[1] == "showSt":
+        selectStundeplan(choice[0].split("+"))
+    elif choice[1] == "kuLists":
+        selectKursTeilnehmer(choice[0].split("+"))
+        
+    showRestart()
