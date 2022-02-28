@@ -1,1 +1,10 @@
 *.pdf
+doc/Facharbeit.aux
+doc/Facharbeit.bbl
+doc/Facharbeit.bcf
+doc/Facharbeit.blg
+doc/Facharbeit.log
+doc/Facharbeit.out
+doc/Facharbeit.run.xml
+doc/Facharbeit.toc
+doc/Facharbeit.synctex.gz
