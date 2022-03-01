@@ -1,3 +1,4 @@
+from email import header
 import sqlite3
 import os
 import sys
@@ -6,7 +7,7 @@ from tabulate import tabulate
 con = sqlite3.connect("schueler.db")
 cur = con.cursor()
 
-
+# Diese Klasse nutzte ich um das "Tree-Interface" darzustellen
 class root():
     path = "/"
 
@@ -74,6 +75,7 @@ class root():
 
 mainRoot = root("Sie haben diese Optionen: ", "")
 
+# Die Baumstruktur für das Ausgeben der verschiedenen Tabellen wird definiert
 selectTable = root("Welche Tabelle soll aus gegeben werden? ", "Gesamte Tabellen ausgeben" , "selectTable", "", "Tabellen")
 selectTable.addRoot(root("", "Schüler", "schueler", "selectT"))
 selectTable.addRoot(root("", "Kurse", "kurse", "selectT"))
@@ -82,28 +84,33 @@ selectTable.addRoot(root("", "Lehrer", "lehrer", "selectT"))
 selectTable.addRoot(root("", "Stunden-Kurse Beziehung", "stundenKurs", "selectT"))
 selectTable.addRoot(root("", "Schüler-Kurse Beziehung", "schuelerKurs", "selectT"))
 
+# Die Baustruktur der Option "Individualpläne" wird erstellt. Dabei werden alle Schüler hinzugefügt 
 showStundenplan = root("Von wem wollen Sie den Stundenplan sehen? ", "Individueller Stundenplan", "stundenplan", "", "Stundenplan")
 cur.execute("SELECT * FROM schueler;")
 for s in cur.fetchall():
     showStundenplan.addRoot(root("",s[1] + " " + s[2], s[1] + "+" + s[2], "showSt"))
 
+# Hier wird die Baumstruktur der option "Kurslisten" definiert. Alle Kurse werden angezeigt
 kursListen = root("Von welchem Kurs wollen Sie die Kursliste sehen?", "Kurslisten", "kursListen", "kuLists", "Kurse")
 cur.execute("SELECT * FROM Kurse;")
 for k in cur.fetchall():
     #print(k)
     kursListen.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuLists"))
 
+# Für die das Abrufen der Zeiten wird eine ähnliche Struktur wie bei "Kurslisten" erstellt
 kursZeiten = root("Hier können die Zeiten der Kurse abgerufen werden", "Kurszeiten", "kursZeiten", "", "Zeiten")
 cur.execute("SELECT * FROM Kurse;")
 for k in cur.fetchall():
     #print(k)
     kursZeiten.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuZeiten"))
 
+# Die Unterbäume werden zum Hauptbaum hinzugefügt
 mainRoot.addRoot(showStundenplan)
 mainRoot.addRoot(selectTable)
 mainRoot.addRoot(kursListen)
 mainRoot.addRoot(kursZeiten)
 
+# Bestimmten Stundenplan anzeigen. (name = [<Vorname>, <Nachname>])
 def selectStundeplan(name):
     cur.execute("""
     SELECT kurse.name, stunden.tag, stunden.vonS, stunden.bisS
@@ -121,7 +128,7 @@ def selectStundeplan(name):
 
     print(tabulate(cur.fetchall(), headers=["Kurs", "Wochentag", "Stunden Beginn", "Stunden Ende"] , tablefmt="pretty"))
 
-
+# Eine bestimmte Kursliste ausgeben
 def selectKursTeilnehmer(name):
     cur.execute("""
     SELECT schueler.vorname, schueler.nachname
@@ -135,6 +142,7 @@ def selectKursTeilnehmer(name):
     
     print(tabulate(cur.fetchall(), headers=["Vorname", "Nachname"] , tablefmt="pretty"))
 
+# Die Zeiten der eines bestimmten Kurses ausgeben
 def stundenZeiten(name):
     print(name[0] + ":")
     cur.execute("""
@@ -149,13 +157,13 @@ def stundenZeiten(name):
     
     print(tabulate(cur.fetchall(), headers=["Wochentag", "Von", "Bis"] , tablefmt="pretty"))
 
+# Einen Tabelle ausgeben
 def selectTabelle(name):
     cur.execute("SELECT * FROM " + name + ";")
-    print(tabulate(cur.fetchall(), tablefmt="pretty"))
-
-def showRestart():
-    input("\n\n Weitersuchen? [enter]")
-
+    h = []
+    for n in cur.description:
+        h.append(n[0])
+    print(tabulate(cur.fetchall(), headers=h, tablefmt="pretty"))
 
 
 while True:
@@ -173,5 +181,5 @@ while True:
         selectKursTeilnehmer(choice[0].split("+"))
     elif choice[1] == "kuZeiten":
         stundenZeiten(choice[0].split("+"))
-        
-    showRestart()
+
+    input("\n\n Weitersuchen? [enter]")
