@@ -1,0 +1,4 @@
+# Packages to install
+pysqlite3
+art
+tabulate

@@ -109,27 +109,41 @@ sorting=ynt
 
 % Author info
 \title{\small Facharbeit zum Thema: \\ \Large Zur Entwicklung und Implementation einer Datenbank anhand einer Schulkursbelegung}
-\author{Frederik Folkers}
+%\author{Frederik Folkers}
 
 \date{
-\begin{tabular}{ll}
-Schule: & Gymnasium Verl \\
-Schuljahr: & 2021/2022\\
-Kurs: & Grundkurs Informatik\\
-Betreuender Lehrer: & Herr Jansen\\
-\end{tabular} 
+
 }
 
 \begin{document}
 	\maketitle
+	
+	
+	\begin{center}
+	\vspace{3cm}
+	\begin{tabular}{ll}
+	Schule: & Gymnasium Verl \\
+	Schuljahr: & 2021/2022\\
+	Kurs: & Grundkurs Informatik\\
+	Betreuender Lehrer: & Herr Jansen\\
+	\end{tabular} 
+	\vfill
+	Vorgelegt von:\\
+	Frederik Folkers
+	\end{center}
 	\newpage
-	\tableofcontents
+	\tableofcontents	
+	\vspace{1cm}
+	Literaturverzeichnis\\
+	Schlusserklärung\\
+	Anhang liegt im USB-Stick bei (UI-Script, Datenabank, Vorbereitungsdateien)
 	\newpage	
 	
 	\onehalfspace
 	\section{Einleitung}
 	\label{sec:intro}
-	
+	Im heutigen Informationszeitalter ist es wichtig, große und komplexe Datenmengen effizient abzuspeichern und die gewünschten Informationen strukturiert abrufen zu können. Daher habe ich für diese Facharbeit das Thema Datenbanken gewählt. \\
+	Zunächst werde ich verschiedene Möglichkeiten zur Sicherung von Daten vorstellen, dann dieses Wissen exemplarisch am Beispiel einer Schulkursbelegung für die Oberstufe darstellen.
 	
 	\section{Allgemeine Informationen}
 	\label{sec:allgInfo}
@@ -147,14 +161,14 @@ Betreuender Lehrer: & Herr Jansen\\
 	\vspace{-30pt}
 	\caption{Vertre\-tungsplan Struktur}\label{fig:verTree}
 	\end{wrapfigure}
-	Ein normales Ordnersystem kann als Datenbankstruktur genutzt werden. Dabei handelt es sich um eine näherungsweise hierarchische Datenbank. Die Informationen werden sehr leicht in Gruppen (durch Unterordner) eingeteilt. Beispiel für die Anwendung einer solchen Struktur ist mein Vertretungsplan. Diesen habe ich als Alternative zu dem normalen Vertretungsplan programmiert. Ich könnte so einige stilistische Verbesserungen einbauen. In der neuen Struktur hat jede Klasse bzm. Stufe ein eingenes Verzeichnis. Dadurch müssen sich die Schüler nicht mehr alle anderen Vertretungen angucken.  Abbildung~\ref{fig:verTree} zeigt die Datenbankstruktur, welche in Form eines Dateisystems angelegt wurde. In jedem Ordner ist eine csv-Datei, in welcher die Daten von der entsprechenden Klasse oder Stufe gespeichert sind. Beiliegend zu jeder csv-Datei ist auch noche eine html-Seite. Die beiden Dateien enthalten also grundlächlich die gleichen Informationen, aber die html Seite ist für Menschen und das csv-Dokument für Maschienen. Ein Vorteil in diesem Fall ist, dass dadurch Daten und Anzeige getrennt sind. So eine Datenbank entspricht aber, wie im ersten Satz angedeutet, nicht in allen Punkten einer Hierarchischen Datenbank Struktur. Es gibt zwei große Unterschiede. Wenn in sich in einem Orden System ein leerer Ordner befindet, wird dieser nicht zu einem Blatt (einer Datei). Dies wäre in einer hierarchischen Datenbankstruktur der Fall. Ein weiterer Unterschied ist, dass es keine Beziehungen zwischen den Dateien geben kann.\footnote{siehe: \cite{hierDbWiki}}\\
-Dieses Modell hat allerdings auch einige Nachteile, weswegen die Nutzung dieser Struktur bei großen Datenmengen nur eingeschränkt möglich ist. Eines davon ist, dass der es immer nur auf einen Anwendung optimiert werden kann\footnote{siehe: \cite{Jarosch2010} 3.2 Das hierarchische Datenbank-Modell}. Auf meinen Vertretungsplan bezogen bedeutet, dass wenn der Vertretungsplan nach Tag und nicht nach Klasse sortiert werden soll, müsste die Datenverwaltungssoftware in jeden Ordner reingehen und diesen auslesen und abspeichern. Dies ist langsam und leistungsintensiv. Ich habe dieses Problem gelöst, indem ich einen zweiten Ordner für alle eingebaut habe. Das ist allerdings durch die Dopplung nicht sehr effizient. 
+	Ein normales Ordnersystem kann als Datenbankstruktur genutzt werden. Dabei handelt es sich um eine näherungsweise hierarchische Datenbank. Die Informationen werden sehr leicht in Gruppen (durch Unterordner) eingeteilt. Beispiel für die Anwendung einer solchen Struktur ist mein Vertretungsplan. Diesen habe ich als Alternative zu dem normalen Vertretungsplan programmiert. Ich könnte so einige stilistische Verbesserungen einbauen. In der neuen Struktur hat jede Klasse bzm. Stufe ein eingenes Verzeichnis. Dadurch müssen sich die Schüler nicht mehr alle anderen Vertretungen angucken.  Abbildung~\ref{fig:verTree} zeigt die Datenbankstruktur, welche in Form eines Dateisystems angelegt wurde. In jedem Ordner ist eine csv-Datei, in welcher die Daten von der entsprechenden Klasse oder Stufe gespeichert sind. Beiliegend zu jeder csv-Datei ist auch noche eine html-Seite. Die beiden Dateien enthalten also grundlächlich die gleichen Informationen, aber die html Seite ist für Menschen und das csv-Dokument für Maschienen. Ein Vorteil in diesem Fall ist, dass dadurch Daten und Anzeige getrennt sind. So eine Datenbank entspricht aber, wie im ersten Satz angedeutet, nicht in allen Punkten einer Hierarchischen Datenbank Struktur. Es gibt zwei große Unterschiede. Wenn in sich in einem Orden System ein leerer Ordner befindet, wird dieser nicht zu einem Blatt (einer Datei). Dies wäre in einer hierarchischen Datenbankstruktur der Fall. Ein weiterer Unterschied ist, dass es keine Beziehungen zwischen den Dateien geben kann.\footnote{vgl. \cite{hierDbWiki}}\\
+Dieses Modell hat allerdings auch einige Nachteile, weswegen die Nutzung dieser Struktur bei großen Datenmengen nur eingeschränkt möglich ist. Eines davon ist, dass der es immer nur auf einen Anwendung optimiert werden kann\footnote{vgl. \cite{Jarosch2010} 3.2 Das hierarchische Datenbank-Modell}. Auf meinen Vertretungsplan bezogen bedeutet, dass wenn der Vertretungsplan nach Tag und nicht nach Klasse sortiert werden soll, müsste die Datenverwaltungssoftware in jeden Ordner reingehen und diesen auslesen und abspeichern. Dies ist langsam und leistungsintensiv. Ich habe dieses Problem gelöst, indem ich einen zweiten Ordner für alle eingebaut habe. Das ist allerdings durch die Dopplung nicht sehr effizient. 
 
 Ein weiteres Problem ist, dass wenn nur eine kleine Änderung in der Struktur nötig ist, wird das Programm direkt unbenutzbar, da es die neue Struktur nicht mehr lesen kann3. An dem Beispiel würde das bedeuten, dass wenn ich mich jetzt dafür entscheiden würde die Daten erst nach Tag und dann nach Klasse zu ordnen müsste ich mein gesamtes Datenverwaltungsprogramm neu schreiben. 
 	
 	\subsubsection{Netzwerk}
 	\label{sec:netzdb}
-	Die Netzwerkstruktur löst einige Probleme des hierarchischem Datenbank-Modells. Bei einer Netzwerkstruktur kann prinzipiell jeder Punkt als Einstiegspunkt verwendet werden. Diese müssen allerdings bei dem Erstellen des Entwurfs festgelegt werden. Das bedeutet, dass man es nicht auf eine bestimmte Sortiertung optimieren muss. Beim Erstellen dieses Modells werden die Brücken bzw. Beziehungen schon vordefiniert. Dabei ist es wichtig, dass die Beziehungen in beide Richtungen verwendbar sind. Ein Nachteil dieses Systems ist, dass nur 1:n bzw. n:1 Beziehungen dargestellt werden können\footnote{siehe: \cite{Jarosch2010} 3.3 Das Netztwerk-Datenbank-Modell}. Ich werde diese Struktur am folgenden Beispiel weiter erläutern: \\
+	Die Netzwerkstruktur löst einige Probleme des hierarchischem Datenbank-Modells. Bei einer Netzwerkstruktur kann prinzipiell jeder Punkt als Einstiegspunkt verwendet werden. Diese müssen allerdings bei dem Erstellen des Entwurfs festgelegt werden. Das bedeutet, dass man es nicht auf eine bestimmte Sortiertung optimieren muss. Beim Erstellen dieses Modells werden die Brücken bzw. Beziehungen schon vordefiniert. Dabei ist es wichtig, dass die Beziehungen in beide Richtungen verwendbar sind. Ein Nachteil dieses Systems ist, dass nur 1:n bzw. n:1 Beziehungen dargestellt werden können\footnote{vgl. \cite{Jarosch2010} 3.3 Das Netztwerk-Datenbank-Modell}. Ich werde diese Struktur am folgenden Beispiel weiter erläutern: \\
 \includegraphics[scale=1]{netzwerkmodell.pdf}	
 Auf dieser Grafik sind 4 quadrate zu erkennen. Diese stehen für Entätsmengen. An drei der vier Entitätsmengen sind Ellipsen in denen Einstiegspunkt steht. Ein Einstiegspunkt kennzeichnet im Grunde die Informationen, die als ausgangs Information verwendet werden können. \\
 Wenn nun ermittelt werden soll, in welcher Klasse ein bestimmter Schüler ist, kann der Einstiegspunkt bei Schüler benutzt und von dort aus auf Klasse zugreifen. Dies gilt genauso für Unterrichtsraum und Schule. Wenn man also nun wissen welche Klasse in einem bestimmten Raum ist oder welche Klassen eine bestimmte Schule hat ist das möglich. Wenn man aber wissen will welcher Klassenraum von einer bestimmten Klasse benutzt wird ist das genauso wenig möglich wie herauszufinden welche Schüler in dieser Klasse sind. Der Grund dafür ist, dass Klasse nicht als Einstiegspunkt markiert wurde und somit auch nicht als ein solcher benutzbar ist. Mit anderen Worten: In diesem Beispiel ist es nicht möglich Informationen über Schüler, Unterrichtsräume oder Schulen abzurufen, wenn die einzige gegebene Information die Klasse ist.
@@ -193,17 +207,17 @@ Das Paper beginnt damit, dass der Autor die damaligen Probleme an Datenstrukture
 	\label{fig:eBeis}
 	\end{center}
 	
-	\paragraph{Attribut (D)} In dieser Grafik werden die Attribute bzw. Domänen durch Ellipsen dargestellt. In einer Bildlichen darstellen durch Tabellen würden Domänen die Spaltenüberschriften repräsentieren. Eine Domäne kann als Primary Key für eine Entitätsmenge gekennzeichnet werden. Dies geschieht, indem man den Domänenamen unterstreicht\footnote{siehe: \cite{Jarosch2010} 7.5 Datenbankentwurf: Attribut}.
+	\paragraph{Attribut (D)} In dieser Grafik werden die Attribute bzw. Domänen durch Ellipsen dargestellt. In einer Bildlichen darstellen durch Tabellen würden Domänen die Spaltenüberschriften repräsentieren. Eine Domäne kann als Primary Key für eine Entitätsmenge gekennzeichnet werden. Dies geschieht, indem man den Domänenamen unterstreicht\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Attribut}.
 	
-	\paragraph{Entitätsmenge (A, B)} Die Entitätsmengen werden durch Vierecke dargestellt. Im übertragenen Sinne sind dies Tabellen. Entitätsmengen sind von Attributen umringt. Davon ist normaler Weise mindestens eines ein Primary Key\footnote{siehe: \cite{Jarosch2010} 7.5 Datenbankentwurf: Entität}.
+	\paragraph{Entitätsmenge (A, B)} Die Entitätsmengen werden durch Vierecke dargestellt. Im übertragenen Sinne sind dies Tabellen. Entitätsmengen sind von Attributen umringt. Davon ist normaler Weise mindestens eines ein Primary Key\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Entität}.
 	
-	\paragraph{Beziehungsmenge (B)} Eine Raute beschreibt eine Beziehungsmenge1. In der Mitte steht die reale Beziehung zwischen den Entitätsmengen z.B. „besitzt“ oder „ist in“. Die Raute ist mit zwei Strichen mit den zugehörigen Entitätsmengen verbunden.  Auf diesen Pfeilen werden die Kardinalitäten notiert. Dabei steht die Menge der Beziehungen einer einzelnen Entität auf der anderen Seite der Raute. In dem abgebildeten Beispiel kann eine Zeile in A nur auf einen Zeile in C verweisen, aber eine Zeile in C kann auf beliebig viele Zeilen in A verweisen\footnote{siehe: \cite{Jarosch2010} 7.5 Datenbankentwurf: Beziehung}. 
+	\paragraph{Beziehungsmenge (B)} Eine Raute beschreibt eine Beziehungsmenge1. In der Mitte steht die reale Beziehung zwischen den Entitätsmengen z.B. „besitzt“ oder „ist in“. Die Raute ist mit zwei Strichen mit den zugehörigen Entitätsmengen verbunden.  Auf diesen Pfeilen werden die Kardinalitäten notiert. Dabei steht die Menge der Beziehungen einer einzelnen Entität auf der anderen Seite der Raute. In dem abgebildeten Beispiel kann eine Zeile in A nur auf einen Zeile in C verweisen, aber eine Zeile in C kann auf beliebig viele Zeilen in A verweisen\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Beziehung}. 
 	
 	\subsection{Datenbank erstellen}
 	\label{sec:dbErst}
 	
 	Wenn man sich diese beiden beschriebenen Datenbankmanagementsysteme anguckt, könnte man davon ausgehen, dass ich SQLite gewählt habe, da es besser zu meiner Anwendung passt. Allerdings habe ich noch nie mit SQLite gearbeitet und habe einen SQL-Server schon aufgesetzt.\\
-Da ich den MySQL-Server schon aufgesetzt ist kann direkt mit dem Erstellen der Datenbank Struktur beginnen. Dazu habe ich mich mit „ssh“ als „root“ auf meinem Server angemeldet und konnte dann mit dem Befehl „mysql“ die MySQL Shell öffnen. Die SQL-Befehle habe ich in der offiziellen SQL-Dokumentation nachgeschaut.\footnote{siehe: \cite{sqlDocu}}\\ \\
+Da ich den MySQL-Server schon aufgesetzt ist kann direkt mit dem Erstellen der Datenbank Struktur beginnen. Dazu habe ich mich mit „ssh“ als „root“ auf meinem Server angemeldet und konnte dann mit dem Befehl „mysql“ die MySQL Shell öffnen. Die SQL-Befehle habe ich in der offiziellen SQL-Dokumentation nachgeschaut\footnote{vgl. \cite{sqlDocu}}.\\ \\
 Das erste was ich gemacht habe ist eine neue Datenbank zu erstellen. Damit es keine Zeichenfehler gibt habe ich ü gegen ue ersetzt.
 	
 	\begin{lstlisting}[ language=SQL,
@@ -315,9 +329,18 @@ CREATE USER "schueler"@"%" IDENTIFIED BY "stundenplan#1Pas";
 
 GRANT ALL PRIVILEGES ON schueler.* TO schueler;
 	\end{lstlisting}	
+	\subsection{Datenbank füllen}
+	\subsection{Datenbank auslesen}
+	\subsection{Mein Script}
+	\section{Zusammenfassung und Ausblick}
+	\label{sec:end}
 	\newpage
-	\printbibliography
-	
+	\printbibliography	
 	\appendix
 	
+	\newpage
+	\section*{Schlusserklärung}
+	Hiermit versichere ich, dass ich die vorgelegte Arbeit selbstständig angefertigt, keine weiteren als die angegeben	 Hilfsmittel benutzt und die Stellen der Facharbeit, die im Wortlaut oder im wesentlichen Inhalt aus anderen Werken entnommen sind, mit genauer Quellenangabe kenntlich gemacht habe.\\
+	\vspace{4cm}
+	Verl, den \today
 \end{document}
