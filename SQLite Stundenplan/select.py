@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import sys
 from art import *
 from tabulate import tabulate
 con = sqlite3.connect("schueler.db")
@@ -18,7 +19,11 @@ class root():
         self.title = title
 
     def printHead(self):
-        os.system("clear")
+        if sys.platform == "linux" or sys.platform == "linux2":
+            os.system("clear")
+        else:
+            os.system("cls")
+            
         tprint(self.title, font="big")
         print("Mit diesem Terminal kann man mit der Datenbank kommunizieren. Geben Sie die Nummer der gewünschten Option ein.")
 
