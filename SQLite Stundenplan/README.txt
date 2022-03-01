@@ -1,9 +1,10 @@
 Datenbank zur Schulkursbelegung - README.txt
 
-Es sollten sich 2 weitere Dateien in diesem Ordner:
+Es sollten sich 3 weitere Dateien in diesem Ordner:
 	schueler.db
 	select.py
-
+	requirements.txt
+	
 schueler.db
 	Dies ist die Datenbank in der die Schulkursbelegung gespeichert wird. Diese kann mit Hilfe des scriptes setup.py in preparations wiederhergestellt werden.
 
