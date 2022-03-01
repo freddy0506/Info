@@ -1,9 +1,6 @@
-from random import choice
 import sqlite3
 import os
-from unittest import result
 from art import *
-from click import style
 from tabulate import tabulate
 con = sqlite3.connect("schueler.db")
 cur = con.cursor()
