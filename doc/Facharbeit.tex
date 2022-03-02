@@ -153,7 +153,20 @@ sorting=ynt
 	\section{Einleitung}
 	\label{sec:intro}
 	Im heutigen Informationszeitalter ist es wichtig, große und komplexe Datenmengen effizient abzuspeichern und die gewünschten Informationen strukturiert abrufen zu können. Daher habe ich für diese Facharbeit das Thema Datenbanken gewählt. \\
-	Zunächst werde ich verschiedene Möglichkeiten zur Sicherung von Daten vorstellen, dann dieses Wissen exemplarisch am Beispiel einer Schulkursbelegung für die Oberstufe darstellen.
+	Zunächst werde ich verschiedene Möglichkeiten zur Sicherung von Daten vorstellen, dann dieses Wissen exemplarisch am Beispiel einer Schulkursbelegung für die Oberstufe darstellen. Bei diesem Projekt folge ich dem einfachen Wasserfallmodell\footnote{\cite{projModell}}. Dieses sieht folgendermassen aus:\\
+	\begin{center}
+	\includegraphics[scale=0.7]{projModell.pdf}
+	\end{center}	
+	
+	Es ist sehr einfach, da es nur aus zwei schritten besteht: Der Analyse und dem Programmieren. Diese habe ich gewählt, da es ein relativ kleines Projekt ist und die Anzahl der nutzter höchstwahrscheinlich nicht in den zweistelligen Bereich gehen wird. Allerdings muss noch einen weiterer Schritt hinzugefügt werden:
+	\begin{center}
+	\includegraphics[scale=0.7]{newprojModell.pdf}
+	\end{center}
+	
+	Die Methodenwahl ist in diesem Fall wichtig, da ich mir am Anfang der Projektes noch nicht sicher war welche Methoden ich verwenden werde. Dieser Schritt wird die Wahl der Datenbankstruktur, die Wahl des Datenbankmanagementsystemes und die Wahl der Programmiersprache beschreiben.
+	\section{Problem}
+	\label{sec:prob}
+	Für diese Facharbeit habe ich mir überlegt, dass ich eine Stundenplanverwaltungssoftware erstellen will. An diesem Beispiel werde ich den Entwicklungsprozess der Datenbankstruktur erklären. Das Problem, welches diese Software lösen könnte, ist die Verwaltung der Individualpläne der Oberstufe. Bei diesen ist, im Gegensatz zu der Unterstufe, das Problem, dass sie, wie der Name schon sagt, individuell sind. Das bedeutet, dass man für jeden einzelnen Schüler der Oberstufe einen eigenen Stundenplan abspeichern muss. Um dies möglichst effizient zu tun, werde ich die Datenbankstruktur auf dieses Problem optimieren. Weitere Funktionen sollten sein, dass man die Raumbelegung, die Schienenzeiten sowie die Namen der Schüler und Lehrer allgemein ändern kann.	
 	
 	\section{Allgemeine Informationen}
 	\label{sec:allgInfo}
@@ -187,6 +200,9 @@ Wenn nun ermittelt werden soll, in welcher Klasse ein bestimmter Schüler ist, k
 	\label{sec:reldb}
 	Dieses Datenbank-Modell ist das populärste. Die Grundlage dafür bildet das mir vorliegende Paper „A Relational Model of Data for Large Shared Data Banks” \cite{Codd1970}. Dieses wurde von Edgar F. Codd verfasst und im Juni 1970 veröffentlicht. In diesem wird eine neue Art der Datenspeicherung vorgestellt. Durch dieses Modell werden einige der Probleme gelöst, welch bei primitiveren Modellen vorhanden waren. Dieses Paper bildet nebenbei auch noch die Grundlage für die moderne und meistbenutzte Datenbanksprache SQL. \\
 Das Paper beginnt damit, dass der Autor die damaligen Probleme an Datenstrukturen erklärt. Dabei geht er auf das Hierarchische (\ref{sec:hierdb}) und das Netzwerk-Modell (\ref{sec:netzdb}) ein. Daraufhin bringt er ein neues verbessertes Datenbankmodell ins Spiel: Das Relationale Datenbankmodell. Dieses Modell basiert darauf, dass die Informationen in 2D Tabellen, also Tabellen mit nur einem Spalten und Zeilen Ebene, gespeichert werden, dass hat den Vorteil, dass alle Informationen in einem 2D Array gespeichert werden können. Bei einer 3D Tabelle, also wenn mehrer Ebenen existieren, müsste dies durch ein 3D Array dargestellt werden. Das macht die Datenspeicherung unübersichtlich und unnötig kompliziert. Diese Tabellen fassen verschiedenen Entitäts-Typen zusammen wie z.B. „User“, „Bücher“ oder „Verkäufer“. Für jede Eigenschaft der Entitäten wird eine Spalte angelegt. Jetzt kann man immer, wenn man einen neuen Datensatz bzw. Entität in die Tabelle einspeichern will eine weitere Zeile zu der Tabelle hinzufügen. Jede dieser Tabellen hat einen sogenannten Primary Key. Dieser kann jede Zeile Individuell identifizieren. Er kann auch aus mehreren Spalten bestehen. Damit man diese Spalte erkennen kann ist sie meistens gekennzeichnet. Somit muss er bei jeder Entität anders sein. Wenn es jetzt Sinn macht einige Informationen in einer anderen Tabelle zu speichern z.B. wenn man z.B. ein Bibliotheksverwaltungsprogramm hat, kann man den Inhalt getrennt von dem Regal abspeichern.  Für diesen Fall hatte E. F. Codd eine Idee. Man kann eine zweite Tabelle erstellt, in der man alle Informationen zu seinem zweiten Datensatz abspeichert. Um erkennen zu können welche Zeile zu welcher Zeile in der zweiten Tabelle gehört fügt man der zweiten Tabelle den Primary Key des ersten hinzu. In der zweiten Tabelle wird dieser dann Foreign Key genannt. Wenn man z.B. nach einem Buch mit einem bestimmten Inhalt sucht, kann man diesen in der Inhaltstabelle rausuchen und dann in der Regalpositionsliste gucken, wo es steht. Andersherum kann man ein bestimmtes Buch aus der Regalpositionsliste heraussuchen und dann nachgucken, wie der Inhalt ist. Man kann hier einen großen Unterschied zur Netzwerkstruktur erkennen, da man jede Tabelle als Eintrittspunkt nutzten kann. Diese Beziehung wird 1:1 Beziehung genannt, da jede Zeile nur auf eine Zeile verweist. Im Beispiel wird dadurch beschrieben, dass jedes Buch nur einen Inhalt haben kann. Bei dieser Beziehung ist es egal in welcher Tabelle den Foreign Key hat. Einen 1:n Beziehung ist dagegen sehr ähnlich aufgebaut. Bei dieser wird der Primary Key genauso in die andere Tabelle geschrieben. Es ist aber möglich, dass der Primary Key auf mehrere Foreign Keys verweist. In unserem Beispiel würde diese Beziehung genutzt werden, wenn man eine statt einer Regalpositionsliste nur eine Regalliste hätte. In dieser würde dann nur das Regal abgespeichert werden. Damit kann jedes Regal mehrere Bücher haben jedes Buch aber nur ein Regal. In diesem Fall würde man den Foreign Key in die Bücherliste schreiben. Die letzte Beziehung, mit der ich mich beschäftigen werde, ist eine n:m Beziehung. Diese ist etwas komplizierter, da es nötig wird eine neue Tabelle zu erstellen. Diese Tabelle setzt sich aus den beiden Foreign Key der Tabelle zusammen, welche beide als Primary Key der neuen Tabelle dienen. Wenn man nun herausfinden will welche Zeilen der einen Tabelle zur anderen gehören guckt man einfach den entsprechenden Primary Key in der Beziehungstabelle nach. Dadurch findet man die Primary Key der entsprechenden Zeilen der zweiten Tabelle und kann diese auslesen. Dieser Vorgang kann auch andersherum benutzt werden. Mit dieser Struktur ist es möglich große Datenmengen relativ einfach abzuspeichern und diese in Verbindung zu setzten.
+
+	\subsubsection{Entscheidung}
+	Wie an dem längen Unterschied der Texte zu erkennen ist, habe ich das relationale Datenbankmodell am genausten erklärt. Der Grund dafür ist, dass es wie schon erwähnt das modernste und variabelste ist. Dies ist auch der Grund warum ich mich für dieses Modell entscheide.
 	
 	\subsection{Verschiedene Datenbanken}
 	\label{sec:dbArten}
@@ -200,17 +216,31 @@ Das Paper beginnt damit, dass der Autor die damaligen Probleme an Datenstrukture
 	\subsubsection{MySQL}
 	\label{sec:MySQL}
 	MySQL ist ein Server basiertes Datenbankmanagementsysteme. Das bedeutet es ist möglich mit verschiedenen Benutzern auf dieses System zuzugreifen. Das hat den Vorteil, dass es von mehreren Programmen gleichzeitig genutzt werden kann, diese müssen sich nicht einmal auf dem gleichen Computer befinden. MySQL kann sehr große Mengen an Daten abspeichern sich dabei zu verlangsamen.
-	\section{Problem}
-	\label{sec:prob}
 	
-	Für diese Facharbeit habe ich mir überlegt, dass ich eine Stundenplanverwaltungssoftware erstellen will. An diesem Beispiel werde ich den Entwicklungsprozess der Datenbankstruktur erklären. Das Problem, welches diese Software lösen könnte, ist die Verwaltung der Individualpläne der Oberstufe. Bei diesen ist, im Gegensatz zu der Unterstufe, das Problem, dass sie, wie der Name schon sagt, individuell sind. Das bedeutet, dass man für jeden einzelnen Schüler der Oberstufe einen eigenen Stundenplan abspeichern muss. Um dies möglichst effizient zu tun, werde ich die Datenbankstruktur auf dieses Problem optimieren. Weitere Funktionen sollten sein, dass man die Raumbelegung, die Schienenzeiten sowie die Namen der Schüler und Lehrer allgemein ändern kann.
+	\subsubsection{Entscheidung}
+	Für dieses Projekt ist meiner Meinung nach SQLite ganzklar die bessere Wahl, auch in anbetracht der Tatsache, dass ich dass ich die Datenbank abgeben muss. Diese sollte deswegen auch unabhängig von dem Status irgenteines Servers abhängig sein. Allerdings ist es sehr einfach zwischen den Datenbanken zu wechseln, da sie beide SQL benutzten. Dadurch müssen die Befehle nur einmanl Konstruiert werden und funktionieren dann für beide Datenbanken. Deswegen habe ich beide Implementiert.
 	
-	\section{Lösungsweg}
+	\subsection{Programmiersprache}
+	Bei der Programmiersprache habe ich mir folgende mögliche Kanidaten angesehen.
+	\subsubsection{Python}
+	\label{sec:py}
+	Pyhton ist eine einfache Scriptingsprache, mit der ich schon Erfahrung sammeln konnte\footnote{siehe Vertretungsplan: \ref{sec:hierdb}}. Desweiteren ist sie gut strukturiert und perfekt für schnelle Programme\footnote{vgl. \cite{Dave13} S.13}.
+	
+	\subsubsection{PHP}
+	\label{sec:php}
+	PHP ist ein relativ einfache Programmiersprache zu Programmieren von dem Backend von Websites. Schon im ersten Jahr wurde eine SQL funktion eingebaut\footnote{siehe: \cite{php1994}}\footnote{siehe: \cite{phpGesch}}. Dazu hat es mehrere nütztliche Funktionen wie "associative array" bei denen, den verschiedenen Objekten statt nummern Namen zugewiesen werden. Dies ist insbesondere beim Auslesen von Tabellenzeilen n"utzlich.
+	
+	\subsubsection{Entscheidung}
+	Ich habe mich in diesem Fall für Python entschieden, da es im Gegensatzt zu PHP keinen Webserver benötigt um zu funktionieren. Außerdem w"are es in PHP n"otig mehrere html-Seiten zu designen.
+	
+	\section{Analyse}
 	\label{sec:loes}
+	Zu der Analyse gehört das Beschreiben eines Programmes. Dies geschieht in diesem Fall durch ein Entity-Relationship-Diagram. Die Syntax eines solchen werde ich im folgendem Kapitel erklären. Danach werde ich mein eigenes Diagramm erklären.
 	
 	\subsection{Entity-Relationship-Diagram erstellen}
 	\label{sec:ERDers}
-	
+	\subsubsection{Syntax}
+	\label{sec:ERSyntax}
 	Nach der Idee für die Datenbank wird zuerst eine Entity-Relationship-Diagram erstellt. Dieses wird genutzt um die Datenbank genau zu planen. Bevor wir uns mein Diagram angucken könnnen werde ich zuerst an Abbildung \ref{fig:eBeis} die Syntax erklären.
 	\begin{center}
 	\includegraphics[scale=0.6, ]{EntityBeis.pdf}
@@ -222,7 +252,25 @@ Das Paper beginnt damit, dass der Autor die damaligen Probleme an Datenstrukture
 	\paragraph{Entitätsmenge (A, B)} Die Entitätsmengen werden durch Vierecke dargestellt. Im übertragenen Sinne sind dies Tabellen. Entitätsmengen sind von Attributen umringt. Davon ist normaler Weise mindestens eines ein Primary Key\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Entität}.
 	
 	\paragraph{Beziehungsmenge (B)} Eine Raute beschreibt eine Beziehungsmenge1. In der Mitte steht die reale Beziehung zwischen den Entitätsmengen z.B. „besitzt“ oder „ist in“. Die Raute ist mit zwei Strichen mit den zugehörigen Entitätsmengen verbunden.  Auf diesen Pfeilen werden die Kardinalitäten notiert. Dabei steht die Menge der Beziehungen einer einzelnen Entität auf der anderen Seite der Raute. In dem abgebildeten Beispiel kann eine Zeile in A nur auf einen Zeile in C verweisen, aber eine Zeile in C kann auf beliebig viele Zeilen in A verweisen\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Beziehung}. 
-	
+	\subsubsection{ER-Diagramm}
+	\label{sec:ERDia}
+	\begin{center}
+	\includegraphics[scale=0.4]{ERStund.pdf}
+	\end{center}
+
+%Wie man erkennen kann, besteht die Datenbank aus vier Entitätsmenge. Die Entitätsmenge die als Haupteinstiegspunkt benutzt werden wird ist wahrscheinlich „sch"uler“.
+Nun werden die Tabellen mit ihrer Parametern und Verbindungen erkärt. 
+\paragraph{Sch"uler}Hier wird für jeden Schüler eine Entität hinzugefügt. Von jedem Sch"uler wird der „Vorname“, der „Nachname“ und die „Stufe“ abgespeichert. Des Weiteren wird jedem Sch"uler eine „SID“\footnote{Sch"uler ID} zugewiesen. Diese dient als Primary Key. Dieser Schritt ermöglicht, dass es mehrere Sch"uler mit dem gleichen Namen und Nachnamen, welche in derselben Stufe sind, unabhängig voneinander zu verwalten.
+
+%Die Beziehung zwischen Schüler und Kurse ist eine n:m Beziehung, da ein Schüler in mehreren Kursen ist und an den Kursen mehrere Schüler teilnehmen. 
+\paragraph{Kurse} In der Entitätsmenge Kurse werden alle besetztbaren Kurse zusammengefasst. Dabei werden die Werte „stufe“, „name“, „fach“ und „art“ gespeichert. „stufe“ und „fach“ sind dabei selbsterklärend. In „name“ wird die Abkürzung des Kurses abgespeichert. Dies geschieht in dem oft von der Schule benutzten Format\footnote{Fach KursartNummer (z.B. CH G1)}. In „art“ wird die Art des Kurses abgespeichert. Damit ist gemeint, ob es ein Grundkurs, ein Leistungskurs oder ein Zusatzkurs ist. In der letzten ungeklärten Domäne „nummer“ wird abgespeichert der wievielte Kurs es ist. Wenn ein Kurs nicht ausreicht, um alle Schüler zu unterrichten werden diese aufgeteilt. Die Kurse werden dann durchnummeriert. Damit man diese unterscheiden kann muss ich diese Information auch abspeichern. Jetzt könnte man anmerken, dass durch diese Aufteilung eine Art Informations-Dopplung entsteht. Ich habe mich allerdings für diese Aufteilung entschieden, da so die Informationen individuell abrufbar sind. Ein weiterer Vorteil ist, dass die Informationen in einer Erweiterten Form abspeichern kann. Man kann zum Beispiel statt nur der Fach-Abkürzung den gesamten Fachnamen abspeichern. Dies Erleichtert im Nachhinein das Ausgeben der Informationen, da man die Abkürzung nicht mehr im Programm in den ausgeschriebenen Namen umwandeln muss. Diese Tabelle besitzt einen Foreign Key in welchem das Kürzel des Kurslehrers gespeichert ist. Dieses kann mit der Tabelle Lehrer abgeglichen werden.
+
+%Von der Entitätsmenge „Kurse“ gehen zwei Beziehungen aus. Ich beginne mit der Beziehung zu der Entitätsmenge „Lehrer“. Diese Beziehung ist eine n:1 Beziehung, da jeder Kurs nur einen Lehrer haben kann. Ein Lehrer kann aber mehrere Kurse habe. Ausnahmen wie Referendare habe ich in diesem Fall nicht betrachtet. Um dies zu implementieren wäre eine n:m Beziehung nötig. 	
+\paragraph{Lehrer}
+\label{sec:Tablehrer}
+Diese Entitätsmenge enthält eine Liste aller Lehrer der Schule inclusive ihren Vornamen, Nachname und Kürzel.
+\paragraph{Stunden}
+In der Tabelle stunden werden alle möglichen Kurszeiten abgespeichert. Alle Attribute dieser Tabelle sind Zahlen. In tag wird der Wochentages abgespeichert\footnote{siehe Wochentagstabelle: i.lhjumegrz<jaoledfuhrijgfzmkdtnslcy,o}. In vonS und bisS wird die Startstunden und die Endstunde abgespeichert. In oft steht in welchem rythmus die entsprechende Stunde stattfindet, bei den meisten wäre das einmal pro Woche, also steht in oft eine 1. Wenn eine Stunde nur jede zweite Woche stattfindet steht in oft eine 2. StId ist eine Automatisch zugewiesene Id.s
 	\subsection{Datenbank erstellen}
 	\label{sec:dbErst}
 	Die in \ref{sec:dbArten} besprochenen Unterschiede sprechen klar dafür, dass ich eine SQLite Datenbank verwenden sollte. Aber, da ich mehr Erfahrung in MySQL habe, habe ich beides gemacht. Die SQL-Befehle habe ich in der offiziellen MySQL-Dokumentation nachgeschaut\footnote{vgl. \cite{sqlDocu}}. Da SQLite auch mit SQL funktioniert konnte ich die Befehle im Grunde übernehmen. \\ 
@@ -342,7 +390,7 @@ GRANT ALL PRIVILEGES ON schueler.* TO schueler;
 	\subsection{Datenbank füllen}
 	Um die Datenbank zu füllen habe ich für jede Tabelle ein Script programmiert. Diese liest eine csv-Datei aus und überträgt jede Zeile in die entsprechende Datenbank. Die csv-Dateien habe ich folgendermassen erstellen:
 	\paragraph{Kurse} Ich habe mir aus unserem Kursplan, ein paar Kurse ausgesucht und diese per Hand in das Dokument geschrieben.
-	\paragraph{Lehrer} Hier konnte ich die Kürzelliste von der Schulwebsite Kopieren und dann mit einem Script in die gewünschte Form bringen.
+	\paragraph{Lehrer} Hier konnte ich die Kürzelliste von der Schulwebsite kopieren und dann mit einem Script in die gewünschte Form bringen.
 	\paragraph{Sch"uler} Die Namen in dieser Tabelle sind frei erfunden.
 	\paragraph{Sch"ulerKurs} Da die Namen schon frei erfunden waren war es schwer für diese eine Kursbelegung zu finden. Also habe ich mir auch eine Ausgedacht und versucht keine Zeiten doppelt zu belegen.
 	\paragraph{Stunden} Ich habe einfach alle möglichen Kurszeiten per Hand abgeschrieben.
@@ -411,7 +459,7 @@ SELECT stunden.tag, stunden.vonS, stunden.bisS
 	\end{lstlisting}	
 	\subsection{Mein Script}
 	Zur einfachen Anwendung dieser Befehle habe ich ein Script programmiert welches eine einfache UI\footnote{UI - User Interface} bietet. Es heißt select.py und sollte auf dem USB-Stick sein\footnote{Denken Sie daran README.txt zu lesen}.
-	\newpage
+	%\newpage
 	\section{Zusammenfassung und Ausblick}
 	\label{sec:end}
 	\newpage
