@@ -9,8 +9,6 @@ cur = con.cursor()
 
 # Diese Klasse nutzte ich um das "Tree-Interface" darzustellen
 class root():
-    path = "/"
-
     def __init__(self, intro, optionName, pathName="/", type="", title="Main") -> None:
         self.optionName = optionName
         self.pathName = pathName
@@ -18,6 +16,7 @@ class root():
         self.nextRoots = []
         self.type = type
         self.title = title
+        self.path = "/"
 
     def printHead(self):
         if sys.platform == "linux" or sys.platform == "linux2":
@@ -34,9 +33,12 @@ class root():
     
     def setPath(self, frontPath):
         self.path = frontPath + self.pathName + "/"
+    def getPath(self):
+        return self.path
 
     def addRoot(self, other):
         other.setPath(self.path)
+        #print(other.getPath())
         self.nextRoots.append(other)
     
     def askOption(self):
@@ -75,6 +77,9 @@ class root():
 
 mainRoot = root("Sie haben diese Optionen: ", "")
 
+OSRoot = root("Sie haben diese Optionen: ", "Oberstufe", "OS")
+USRoot = root("Sie haben diese Optionen: ", "Unterstufe", "US")
+
 # Die Baumstruktur für das Ausgeben der verschiedenen Tabellen wird definiert
 selectTable = root("Welche Tabelle soll aus gegeben werden? ", "Gesamte Tabellen ausgeben" , "selectTable", "", "Tabellen")
 selectTable.addRoot(root("", "Schüler", "schueler", "selectT"))
@@ -104,12 +109,40 @@ for k in cur.fetchall():
     #print(k)
     kursZeiten.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuZeiten"))
 
-# Die Unterbäume werden zum Hauptbaum hinzugefügt
-mainRoot.addRoot(showStundenplan)
-mainRoot.addRoot(selectTable)
-mainRoot.addRoot(kursListen)
-mainRoot.addRoot(kursZeiten)
+# KlassenzuKurs
+klassenKurs = root("Welche Klassenliste wollen Sie sehen?", "Klassenliste", "klassenListe", "", "Klassen-\nlisten")
+cur.execute("SELECT stufe FROM schueler;")
+clases = []
+for s in cur.fetchall():
+    if (not s[0] in clases):
+        klassenKurs.addRoot(root("", s[0], s[0], "classList"))
+        clases.append(s[0])
 
+
+KlassenStundenplan = root("Welche Klassenstundenplan wollen Sie sehen?", "Klassen Stundenplan", "klassenStunden", "", "Klassen-\nlisten")
+cur.execute("SELECT stufe FROM schueler;")
+clases = []
+for s in cur.fetchall():
+    if (not s[0] in clases):
+        KlassenStundenplan.addRoot(root("", s[0], s[0], "classStunden"))
+        clases.append(s[0])
+
+
+# Die Unterbäume werden zum Hauptbaum hinzugefügt
+OSRoot.addRoot(showStundenplan)
+OSRoot.addRoot(kursListen)
+
+OSRoot.addRoot(kursZeiten)
+USRoot.addRoot(kursZeiten)
+
+USRoot.addRoot(klassenKurs)
+USRoot.addRoot(KlassenStundenplan)
+
+mainRoot.addRoot(OSRoot)
+mainRoot.addRoot(USRoot)
+mainRoot.addRoot(selectTable)
+
+mainRoot.setPath("")
 # Bestimmten Stundenplan anzeigen. (name = [<Vorname>, <Nachname>])
 def selectStundeplan(name):
     cur.execute("""
@@ -142,6 +175,24 @@ def selectKursTeilnehmer(name):
     
     print(tabulate(cur.fetchall(), headers=["Vorname", "Nachname"] , tablefmt="pretty"))
 
+# Zum Abrufen der Klassenlisten
+def getKlassenliste(klasse):
+    cur.execute("SELECT vorname, nachname FROM schueler WHERE stufe = '" + klasse + "';")
+    print(tabulate(cur.fetchall(), headers=["Vorname", "Nachname"] , tablefmt="pretty"))
+
+# Zum abrufen der Stunden einer Klasse
+def getKlassenStunden(klasse):
+    cur.execute("""
+    SELECT kurse.name, stunden.tag, stunden.vonS, stunden.bisS
+    FROM kurse
+        JOIN stundenKurs
+        ON kurse.name = stundenKurs.name
+        JOIN stunden
+        ON stundenKurs.StId = stunden.StId
+    WHERE kurse.stufe = '""" + klasse + """' ORDER BY  stunden.tag;
+    """)
+    print(tabulate(cur.fetchall(), headers=["Kurs", "Wochentag", "Stunden Beginn", "Stunden Ende"] , tablefmt="pretty"))
+
 # Die Zeiten der eines bestimmten Kurses ausgeben
 def stundenZeiten(name):
     print(name[0] + ":")
@@ -169,7 +220,7 @@ def selectTabelle(name):
 while True:
     # Ask the User what to do
     choice = mainRoot.askOption()
-    #print(choice)
+    print(choice)
     if choice[0] == "back":
         print("Quitting...")
         quit()
@@ -181,5 +232,9 @@ while True:
         selectKursTeilnehmer(choice[0].split("+"))
     elif choice[1] == "kuZeiten":
         stundenZeiten(choice[0].split("+"))
+    elif choice[1] == "classList":
+        getKlassenliste(choice[0])
+    elif choice[1] == "classStunden":
+        getKlassenStunden(choice[0])
 
     input("\n\n Weitersuchen? [enter]")

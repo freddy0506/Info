@@ -2,7 +2,7 @@ import sqlite3
 import csv;
 
 
-con = sqlite3.connect("schueler.db")
+con = sqlite3.connect("../schueler.db")
 
 cur = con.cursor()
 

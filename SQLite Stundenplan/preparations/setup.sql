@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS kurse (
     raum VARCHAR (10) ,
     lShort VARCHAR (3) ,
     PRIMARY KEY ( name , stufe ) ,
+    FOREIGN KEY ( stufe ) REFERENCES schueler( stufe ),
     FOREIGN KEY ( lShort ) REFERENCES lehrer ( short )
 );
 
