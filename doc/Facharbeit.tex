@@ -153,7 +153,7 @@ sorting=ynt
 	\section{Einleitung}
 	\label{sec:intro}
 	Im heutigen Informationszeitalter ist es wichtig, große und komplexe Datenmengen effizient abzuspeichern und die gewünschten Informationen strukturiert abrufen zu können. Daher habe ich für diese Facharbeit das Thema Datenbanken gewählt. \\
-	Zunächst werde ich verschiedene Möglichkeiten zur Sicherung von Daten vorstellen, dann dieses Wissen exemplarisch am Beispiel einer Schulkursbelegung für die Oberstufe darstellen. Bei diesem Projekt folge ich dem einfachen Wasserfallmodell\footnote{\cite{projModell}}. Dieses sieht folgendermaßen aus:\\
+	Zunächst werde ich verschiedene Möglichkeiten zur Sicherung von Daten vorstellen, dann dieses Wissen exemplarisch am Beispiel einer Schulkursbelegung für die Oberstufe darstellen. Bei diesem Projekt folge ich dem einfachen Wasserfallmodell\footnote{vgl. \cite{projModell} S. 328}. Dieses sieht folgendermaßen aus:\\
 	\begin{center}
 	\includegraphics[scale=0.7]{projModell.pdf}
 	\end{center}	
@@ -187,12 +187,12 @@ sorting=ynt
 	\caption{Struktur des Vertretungsplans}\label{fig:verTree}
 	\end{wrapfigure}
 	Ein normales Ordnersystem kann als Datenbankstruktur genutzt werden. Dabei handelt es sich um eine näherungsweise hierarchische Datenbank. Die Informationen werden sehr leicht in Gruppen (durch Unterordner) eingeteilt. Beispiel für die Anwendung einer solchen Struktur ist mein Vertretungsplan. Diesen habe ich als Alternative zu dem normalen Vertretungsplan programmiert. Ich konnte so einige stilistische Verbesserungen einbauen. In der neuen Struktur hat jede Klasse bzw. Stufe ein eigenes Verzeichnis. Dadurch müssen sich die Schüler nicht mehr alle anderen Vertretungen angucken.  Abbildung~\ref{fig:verTree} zeigt die Datenbankstruktur, welche in Form eines Dateisystems angelegt wurde. In jedem Ordner ist eine csv-Datei, in welcher die Daten von der entsprechenden Klasse oder Stufe gespeichert sind. Beiliegend zu jeder csv-Datei ist auch noch eine HTML-Seite. Die beiden Dateien enthalten also grundsätzlich die gleichen Informationen, aber die HTML-Seite ist für Menschen und das csv-Dokument für Maschinen. Ein Vorteil in diesem Fall ist, dass dadurch Daten und Anzeige getrennt sind. So eine Datenbank entspricht aber, wie im ersten Satz angedeutet, nicht in allen Punkten einer hierarchischen Datenbankstruktur. Es gibt zwei große Unterschiede. Wenn in sich in einem Ordnersystem ein leerer Ordner befindet, wird dieser nicht zu einem Blatt (einer Datei). Dies wäre in einer hierarchischen Datenbankstruktur der Fall. Ein weiterer Unterschied ist, dass es keine Beziehungen zwischen den Dateien geben kann.\footnote{vgl. \cite{hierDbWiki}}\\
-Dieses Modell hat allerdings auch einige Nachteile, weswegen die Nutzung dieser Struktur bei großen Datenmengen nur eingeschränkt möglich ist. Ein Nachteil ist, dass die Datenbank nur auf einen Anwendung optimiert werden kann\footnote{vgl. \cite{Jarosch2010} 3.2 Das hierarchische Datenbank-Modell}. Wenn z.B. mein Vertretungsplan nach Tag und nicht nach Klasse sortiert werden soll, müsste die Datenverwaltungssoftware in jeden Ordner reingehen und diesen die entsprechenden Informationen auslesen und abspeichern. Dies ist langsam und leistungsintensiv. Ich habe dieses Problem gelöst, indem ich einen zweiten Ordner für alle eingebaut habe. Das ist allerdings durch die Dopplung nicht sehr effizient. \\
-Ein weiteres Problem ist, dass nach einer kleinen Änderung in der Struktur das Programm, ohne Prüfung der Struktur, diese nicht mehr lesen kann\footnote{vgl. \cite{Codd1970} S.378}. Aktuell ist mein Vertretungsplan nach Klassen sortiert. Wenn ich nun eine Sortierung nach Tagen wollte, müsste das gesamte Verwaltungsprogramm neu geschrieben werden.
+Dieses Modell hat allerdings auch einige Nachteile, weswegen die Nutzung dieser Struktur bei großen Datenmengen nur eingeschränkt möglich ist. Ein Nachteil ist, dass die Datenbank nur auf einen Anwendung optimiert werden kann\footnote{vgl. \cite{Jarosch2010} S. 117}. Wenn z.B. mein Vertretungsplan nach Tag und nicht nach Klasse sortiert werden soll, müsste die Datenverwaltungssoftware in jeden Ordner reingehen und diesen die entsprechenden Informationen auslesen und abspeichern. Dies ist langsam und leistungsintensiv. Ich habe dieses Problem gelöst, indem ich einen zweiten Ordner für alle eingebaut habe. Das ist allerdings durch die Dopplung nicht sehr effizient. \\
+Ein weiteres Problem ist, dass nach einer kleinen Änderung in der Struktur das Programm, ohne Prüfung der Struktur, diese nicht mehr lesen kann\footnote{vgl. \cite{Codd1970} S. 378}. Aktuell ist mein Vertretungsplan nach Klassen sortiert. Wenn ich nun eine Sortierung nach Tagen wollte, müsste das gesamte Verwaltungsprogramm neu geschrieben werden.
 	
 	\subsubsection{Netzwerk}
 	\label{sec:netzdb}
-	Die Netzwerkstruktur löst einige Probleme des hierarchischem Datenbankmodells. Bei einer Netzwerkstruktur kann prinzipiell jeder Punkt als Einstiegspunkt verwendet werden. Diese müssen allerdings bei dem Erstellen des Entwurfs festgelegt werden. Das bedeutet, dass man es nicht auf eine bestimmte Sortierung optimieren muss. Beim Erstellen dieses Modells werden die Brücken bzw. Beziehungen schon vordefiniert. Dabei ist es wichtig, dass die Beziehungen in beide Richtungen verwendbar sind. Ein Nachteil dieses Systems ist, dass nur 1:n bzw. n:1 Beziehungen dargestellt werden können\footnote{vgl. \cite{Jarosch2010} 3.3 Das Netzwerk-Datenbank-Modell}. 
+	Die Netzwerkstruktur löst einige Probleme des hierarchischem Datenbankmodells. Bei einer Netzwerkstruktur kann prinzipiell jeder Punkt als Einstiegspunkt verwendet werden. Diese müssen allerdings bei dem Erstellen des Entwurfs festgelegt werden. Das bedeutet, dass man es nicht auf eine bestimmte Sortierung optimieren muss. Beim Erstellen dieses Modells werden die Brücken bzw. Beziehungen schon vordefiniert. Dabei ist es wichtig, dass die Beziehungen in beide Richtungen verwendbar sind. Ein Nachteil dieses Systems ist, dass nur 1:n bzw. n:1 Beziehungen dargestellt werden können\footnote{vgl. \cite{Jarosch2010} S. 119}. 
 	
 \begin{figure}[h]
 \includegraphics[scale=1]{netzwerkmodell.pdf}	
@@ -237,7 +237,7 @@ Die letzte Beziehung, mit der ich mich beschäftigen werde, ist eine n:m Beziehu
 	
 	\subsubsection{PHP}
 	\label{sec:php}
-	PHP ist eine relativ einfache Programmiersprache zum Programmieren des Backends von Websites. Schon im ersten Jahr wurde eine SQL Funktion eingebaut\footnote{siehe: \cite{phpGesch}}. Dazu hat es mehrere nützliche Funktionen wie 'associative array' bei denen den verschiedenen Objekten statt Nummern Namen zugewiesen werden. Dies ist insbesondere beim Auslesen von Tabellenzeilen nützlich.
+	PHP ist eine relativ einfache Programmiersprache zum Programmieren des Backends von Websites. Schon im ersten Jahr wurde eine SQL Funktion eingebaut\footnote{vgl. \cite{phpGesch}}. Dazu hat es mehrere nützliche Funktionen wie 'associative array' bei denen den verschiedenen Objekten statt Nummern Namen zugewiesen werden. Dies ist insbesondere beim Auslesen von Tabellenzeilen nützlich.
 	
 	\subsubsection{Entscheidung}
 	Ich habe mich in diesem Fall für Python entschieden, da es im Gegensatz zu PHP keinen Webserver benötigt, um zu funktionieren. Außerdem wäre es in PHP nötig mehrere html-Seiten zu designen.
@@ -256,11 +256,11 @@ Die letzte Beziehung, mit der ich mich beschäftigen werde, ist eine n:m Beziehu
 	\label{fig:eBeis}
 	\end{center}
 	
-	\paragraph{Attribut (D)} In dieser Grafik werden die Attribute bzw. Spalten durch Ellipsen dargestellt. In einer bildlichen Darstellung durch Tabellen würden Domänen die Spaltenüberschriften repräsentieren. Eine Domäne kann als Primary Key für eine Entitätsmenge gekennzeichnet werden. Dies geschieht, indem man den Spaltennamen unterstreicht\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Attribut}.
+	\paragraph{Attribut (D)} In dieser Grafik werden die Attribute bzw. Spalten durch Ellipsen dargestellt. In einer bildlichen Darstellung durch Tabellen würden Domänen die Spaltenüberschriften repräsentieren. Eine Domäne kann als Primary Key für eine Entitätsmenge gekennzeichnet werden. Dies geschieht, indem man den Spaltennamen unterstreicht\footnote{vgl. \cite{Info2} S. 323}.
 	
-	\paragraph{Entitätsmenge (A, B)} Die Entitätsmengen werden durch Vierecke dargestellt. Im übertragenen Sinne sind dies Tabellen. Entitätsmengen sind von Attributen umringt. Davon ist normaler Weise mindestens eines ein Primary Key\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Entität}.
+	\paragraph{Entitätsmenge (A, B)} Die Entitätsmengen werden durch Vierecke dargestellt. Im übertragenen Sinne sind dies Tabellen. Entitätsmengen sind von Attributen umringt. Davon ist normaler Weise mindestens eines ein Primary Key\footnote{vgl. \cite{Info2} S. 323}.
 	
-	\paragraph{Beziehungsmenge (B)} Eine Raute beschreibt eine Beziehungsmenge1. In der Mitte steht die reale Beziehung zwischen den Entitätsmengen z.B. „besitzt“ oder „ist in“. Die Raute ist mit zwei Strichen mit den zugehörigen Entitätsmengen verbunden.  Auf diesen Pfeilen werden die Kardinalitäten notiert. Dabei steht die Menge der Beziehungen einer einzelnen Entität auf der anderen Seite der Raute. In dem abgebildeten Beispiel kann eine Zeile in A nur auf einen Zeile in C verweisen, aber eine Zeile in C kann auf beliebig viele Zeilen in A verweisen\footnote{vgl. \cite{Jarosch2010} 7.5 Datenbankentwurf: Beziehung}. 
+	\paragraph{Beziehungsmenge (B)} Eine Raute beschreibt eine Beziehungsmenge. In der Mitte steht die reale Beziehung zwischen den Entitätsmengen z.B. „besitzt“ oder „ist in“. Die Raute ist mit zwei Strichen mit den zugehörigen Entitätsmengen verbunden.  Auf diesen Pfeilen werden die Kardinalitäten notiert. Dabei steht die Menge der Beziehungen einer einzelnen Entität auf der anderen Seite der Raute. In dem abgebildeten Beispiel kann eine Zeile in A nur auf einen Zeile in C verweisen, aber eine Zeile in C kann auf beliebig viele Zeilen in A verweisen\footnote{vgl. \cite{Info2} S. 324}. 
 	\subsubsection{ER-Diagramm}
 	\label{sec:ERDia}
 	\begin{figure}[h]
@@ -269,7 +269,7 @@ Die letzte Beziehung, mit der ich mich beschäftigen werde, ist eine n:m Beziehu
 	\label{fig:ERStund}
 	\end{figure}
 In Abbildung \ref{fig:ERStund} wird das Stundenplan ER-Diagramm dargestellt. Die folgenden Abschnitte erklären die Einzelheiten.
-\paragraph{Schüler}Hier wird für jeden Schüler eine Entität hinzugefügt. Von jedem Schüler wird der Vorname, der Nachname und die Stufe abgespeichert. Des Weiteren wird jedem Schüler eine „SID“(Schüler Identitätsnummer) zugewiesen. Diese dient als Primary Key. Dieser Schritt ermöglicht, dass es mehrere Schüler mit dem gleichen Namen und Nachnamen, welche in derselben Stufe sind, unabhängig voneinander zu verwalten. Der Name stufe ist etwas irreführend, da dieses Attribute die Klasse speichert dabei sind Oberstufe und Unterstufe gleichberechtigt. Also kann hier "8b" und "EF" stehen.
+\paragraph{Schüler}Hier wird für jeden Schüler eine Entität hinzugefügt. Von jedem Schüler wird der Vorname, der Nachname und die Stufe abgespeichert. Des Weiteren wird jedem Schüler eine „SID“(Schüler Identitätsnummer) zugewiesen. Diese dient als Primary Key. Dieser Schritt ermöglicht es mehrere Schüler mit dem gleichen Namen und Nachnamen, welche in derselben Stufe sind, unabhängig voneinander zu verwalten. Der Name „stufe“ ist etwas irreführend, da dieses Attribute die Klasse speichert dabei sind Oberstufe und Unterstufe gleichberechtigt. Also kann hier „8b“ und „EF“ stehen.
 
 %Die Beziehung zwischen Schüler und Kurse ist eine n:m Beziehung, da ein Schüler in mehreren Kursen ist und an den Kursen mehrere Schüler teilnehmen. 
 \paragraph{Kurse} In der Entitätsmenge Kurse werden alle besetzbaren Kurse zusammengefasst. Dabei werden die Werte „stufe“, „name“, „fach“ und „art“ gespeichert. „stufe“ und „fach“ sind dabei selbsterklärend. In „name“ wird die Abkürzung des Kurses abgespeichert. Dies geschieht in dem oft von der Schule benutzten Format\footnote{Fach KursartNummer (z.B. CH G1)}. In „art“ wird die Art des Kurses abgespeichert. Damit ist gemeint, ob es ein Grundkurs, ein Leistungskurs oder ein Zusatzkurs ist. In der letzten ungeklärten Domäne „nummer“ wird abgespeichert der wievielte Kurs es ist. Wenn ein Kurs nicht ausreicht, um alle Schüler zu unterrichten werden diese aufgeteilt. Die Kurse werden dann durchnummeriert. Damit man diese unterscheiden kann muss ich diese Information auch abspeichern. Jetzt könnte man anmerken, dass durch diese Aufteilung eine Art Informationsdopplung entsteht. Ich habe mich allerdings für diese Aufteilung entschieden, da so die Informationen individuell abrufbar sind. Ein weiterer Vorteil ist, dass so die Informationen in einer erweiterten Form abgespeichert werden können. Man kann zum Beispiel statt nur der Fach-Abkürzung den gesamten Fachnamen abspeichern. Dies erleichtert im Nachhinein das Ausgeben der Informationen, da man die Abkürzung nicht mehr im Programm in den ausgeschriebenen Namen umwandeln muss. Diese Tabelle besitzt einen Foreign Key in welchem das Kürzel des Kurslehrers gespeichert ist. Dieses kann mit der Tabelle Lehrer abgeglichen werden.
@@ -279,10 +279,9 @@ In Abbildung \ref{fig:ERStund} wird das Stundenplan ER-Diagramm dargestellt. Die
 \label{sec:Tablehrer}
 Diese Entitätsmenge enthält eine Liste aller Lehrer der Schule inklusive ihren Vornamen, Nachname und Kürzel.
 \paragraph{Stunden}
-In der Tabelle 'stunden' werden alle möglichen Kurszeiten abgespeichert. Alle Attribute dieser Tabelle sind Zahlen. In 'tag' wird der Wochentag abgespeichert. In 'vonS' und 'bisS' wird die Startstunden und die Endstunde abgespeichert. In 'oft' steht in welchem Rhythmus die entsprechende Stunde stattfindet, bei den meisten wäre das einmal pro Woche, also steht dort eine 1. Wenn eine Stunde nur jede zweite Woche stattfindet steht in 'oft' eine 2. 'StId' ist eine automatisch zugewiesene Identitätsnummer.\\
-Nun zu den Beziehungen, die eine eigene Tabelle benötigen:
-\paragraph{Schüler-Kurse(Oberstufe)}
-Diese Verbindung beschreibt eine Tabelle in der die Kurs belegung der verschiedenen Schüler abgespeichert ist. Eine Zeile besteht aus der ID des Schülers, der Stufe, welche zum Primary Key von Kurse  gehört, und der Name des zubelegenden Kurses.
+In der Tabelle 'stunden' werden alle möglichen Kurszeiten abgespeichert. Alle Attribute dieser Tabelle sind Zahlen. In 'tag' wird der Wochentag abgespeichert. In 'vonS' und 'bisS' wird die Startstunden und die Endstunde abgespeichert. In 'oft' steht in welchem Rhythmus die entsprechende Stunde stattfindet, bei den meisten wäre das einmal pro Woche, also steht dort eine 1. Wenn eine Stunde nur jede zweite Woche stattfindet steht in 'oft' eine 2. 'StId' ist eine automatisch zugewiesene Identitätsnummer.
+\paragraph{Schüler-Kurse}
+Diese Verbindung beschreibt eine Tabelle in der die Kursbelegung der verschiedenen Schüler abgespeichert ist. Eine Zeile besteht aus der ID des Schülers, der Stufe, welche zum Primary Key von Kurse  gehört, und der Name des zubelegenden Kurses.
 \paragraph{Kurse-Stunden}
 Diese Beziehung beschreibt eine Tabelle, in der die Stunden ihren Zeiten zugeordnet werden. Dies geschieht, indem der Kursname und die Stufe zusammen mit der entsprechenden Stunden ID in eine Zeile geschrieben werden.
 
@@ -290,7 +289,7 @@ Diese Beziehung beschreibt eine Tabelle, in der die Stunden ihren Zeiten zugeord
 	\label{sec:dbErst}
 	Die im Abschnitt \ref{sec:dbArten} besprochenen Unterschiede sprechen klar dafür, dass ich eine SQLite Datenbank verwenden sollte. Aber, da ich mehr Erfahrung in MySQL habe, habe ich beides gemacht. Die SQL-Befehle habe ich in der offiziellen MySQL-Dokumentation nachgeschaut\footnote{vgl. \cite{sqlDocu}}. Da SQLite auch mit SQL funktioniert konnte ich die Befehle im Grunde übernehmen. \\ 
 
-Zunächst habe ist eine neue Datenbank erstellt. In SQLite ist dies nicht nötig, da es nur eine Datenbank gibt. Damit es keine Zeichenfehler gibt habe ich „ü“ gegen „ue“ ersetzt.
+Zunächst habe ich eine neue Datenbank erstellt. In SQLite ist dies nicht nötig, da es nur eine Datenbank gibt. Damit es keine Zeichenfehler gibt habe ich „ü“ gegen „ue“ ersetzt.
 	\begin{lstlisting}[ language=SQL,
 	                    deletekeywords={IDENTITY},
 	                    deletekeywords={[2]INT},
@@ -354,7 +353,7 @@ CREATE TABLE kurse(
 	PRIMARY KEY(name, stufe), 
 	FOREIGN KEY (lShort) REFERENCES lehrer(short)
 );\end{lstlisting}
-Die Tabellen, die jetzt noch fehlen sind die Beziehungstabellen. In diesen Tabellen sind alle Foreign Keys und gleichzeitig Primary Keys. Da es mehrere Primary Keys gibt, müssen diese, genau wie die Foreign Keys, am Ende definiert werden.
+Die Tabellen, die jetzt noch fehlen, sind die Beziehungstabellen. In diesen Tabellen sind alle Foreign Keys und gleichzeitig Primary Keys. Da es mehrere Primary Keys gibt, müssen diese, genau wie die Foreign Keys, am Ende definiert werden.
 	
 		\begin{lstlisting}[ language=SQL,
 	                    deletekeywords={IDENTITY},
@@ -382,7 +381,7 @@ CREATE TABLE schuelerKurs(
 	FOREIGN KEY (name, stufe) REFERENCES kurse(name, stufe), 
 	FOREIGN KEY (SID) REFERENCES schueler(SID)
 );\end{lstlisting}
-Damit ein Programm von meinem Computer auf den SQL-Datenbankserver zugreifen kann, habe ich einen neuen Beutzer erstellt. Diesem musste ich dann die Benutzungsrechte für die meine Datenbank geben. Das ging mit dem folgendem Befehl:
+Damit ein Programm von meinem Computer auf den SQL-Datenbankserver zugreifen kann, habe ich einen neuen Benutzer erstellt. Diesem musste ich dann die Benutzungsrechte für die meine Datenbank geben. Das machen die folgenden Befehle:
 	
 	\begin{lstlisting}[ language=SQL,
 	                    deletekeywords={IDENTITY},
@@ -398,13 +397,13 @@ CREATE USER "schueler"@"%" IDENTIFIED BY "stundenplan#1Pas";
 GRANT ALL PRIVILEGES ON schueler.* TO schueler;\end{lstlisting}	
 	In SQLite gibt es nur einen User, deswegen war dies bei der SQLite-Datenbank nicht nötig.
 	\subsection{Datenbank füllen}
-	Um die Datenbank zu füllen habe ich für jede Tabelle ein Script programmiert. Diese liest eine csv-Datei aus und überträgt jede Zeile in die entsprechende Datenbank. Die csv-Dateien habe ich folgendermassen erstellen:
+	Um die Datenbank zu füllen, habe ich für jede Tabelle ein Skript programmiert. Dieses liest eine csv-Datei aus und überträgt jede Zeile in die entsprechende Tabelle. Die csv-Dateien habe ich folgendermaßen erstellen:
 	\paragraph{Kurse} Ich habe mir aus unserem Kursplan ein paar Kurse ausgesucht und diese per Hand in das Dokument geschrieben.
-	\paragraph{Lehrer} Hier konnte ich die Kürzelliste von der Schulwebsite kopieren und dann mit einem Script in die gewünschte Form bringen.
+	\paragraph{Lehrer} Hier konnte ich die Kürzelliste von der Schulwebsite kopieren und dann mit einem Skript in die gewünschte Form bringen.
 	\paragraph{Schüler} Die Namen in dieser Tabelle sind frei erfunden.
 	\paragraph{SchülerKurs} Da die Namen schon frei erfunden waren war es schwer für diese eine Kursbelegung zu finden. Also habe ich mir auch diese ausgedacht und versucht keine Zeiten doppelt zu belegen.
 	\paragraph{Stunden} Ich habe einfach alle möglichen Kurszeiten per Hand abgeschrieben.
-	\paragraph{StundenKurs} Hier habe ich per Hand die entsprechden Zeiten aus dem Kursplan abgeschrieben.
+	\paragraph{StundenKurs} Hier habe ich per Hand die entsprechenden Zeiten aus dem Kursplan abgeschrieben.
 	\subsection{Datenbank auslesen}
 	Um die Tabelle auszulesen, habe ich für die verschiedenen Anwendungen folgende Befehle konstruiert:
 	\paragraph{Kurslisten} \label{sec:selKursLi} Damit man alle Teilnehmer eines Kurses anzeigen kann, muss man zuerst die Schülertabelle mit der Schüler-Kurstabelle verbinden. Dies geschieht durch den Befehl 'JOIN'. Der Parameter 'ON' beschreibt, wann die Tabellen verbunden werden sollen, so wie in diesem Fall, wenn die SID in der Schülertabelle gleich mit der SID in der Schüler-Kurstabelle ist. Dieser Befehl würde eine Tabelle mit allen Kursnamen, ihren Stufen und allen Schülern ausgeben. Da wir aber genauere bzw. ausgeschriebene Angaben haben wollen, habe ich diese Tabelle mit der Kurstabelle verbunden. Dies geschieht, wenn der Name  und die Stufe gleich sind. In der letzten Zeile wird bestimmt, welcher Kurs ausgegeben werden soll. Dies geschieht, indem eine Ausgabebedingung hinzugefügt wird. Somit werden nur die Zeilen ausgegeben, in denen der Name und die Stufe mit den gegebenen Werten übereinstimmt. 
@@ -476,7 +475,7 @@ WHERE schueler.vorname = <Vorname> AND schueler.nachname = <Nachname> ORDER BY  
 	\printbibliography[heading=bibintoc,title={Literaturverzeichnis}]
 	\appendix
 	\newpage
-	
+	\thispagestyle{empty}
 	\section*{Schlusserklärung}
 	\label{sec:final}
 	\addcontentsline{toc}{section}{\nameref{sec:final}}
