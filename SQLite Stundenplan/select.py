@@ -93,26 +93,36 @@ selectTable.addRoot(root("", "Schüler-Kurse Beziehung", "schuelerKurs", "select
 showStundenplan = root("Von wem wollen Sie den Stundenplan sehen? ", "Individueller Stundenplan", "stundenplan", "", "Stundenplan")
 cur.execute("SELECT * FROM schueler;")
 for s in cur.fetchall():
-    showStundenplan.addRoot(root("",s[1] + " " + s[2], s[1] + "+" + s[2], "showSt"))
+    #print(s)
+    if s[3] == "EF" or s[3] == "Q1" or s[3] == "Q2":
+        showStundenplan.addRoot(root("",s[1] + " " + s[2], s[1] + "+" + s[2], "showSt"))
 
-# Hier wird die Baumstruktur der option "Kurslisten" definiert. Alle Kurse werden angezeigt
+# Die Baumstruktur hinter der Oberstufe kurslisten option
 kursListen = root("Von welchem Kurs wollen Sie die Kursliste sehen?", "Kurslisten", "kursListen", "kuLists", "Kurse")
 cur.execute("SELECT * FROM Kurse;")
 for k in cur.fetchall():
-    #print(k)
-    kursListen.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuLists"))
+    if k[1] == "EF" or k[1] == "Q1" or k[1] == "Q2":
+        kursListen.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuLists"))
 
 # Für die das Abrufen der Zeiten wird eine ähnliche Struktur wie bei "Kurslisten" erstellt
 kursZeiten = root("Hier können die Zeiten der Kurse abgerufen werden", "Kurszeiten", "kursZeiten", "", "Zeiten")
 cur.execute("SELECT * FROM Kurse;")
 for k in cur.fetchall():
-    #print(k)
-    kursZeiten.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuZeiten"))
+    print(k)
+    if k[1] == "EF" or k[1] == "Q1" or k[1] == "Q2":
+        kursZeiten.addRoot(root("",k[2] + " " + k[3] +" (" + str(k[4]) + ")", k[0] + "+" + k[1], "kuZeiten"))
+
+# Für die das Abrufen der Zeiten wird eine ähnliche Struktur wie bei "Kurslisten" erstellt
+stundenZeiten = root("Hier können die Zeiten der Stunden abgerufen werden", "Stundenzeiten", "kursZeiten", "", "Zeiten")
+cur.execute("SELECT * FROM Kurse;")
+for k in cur.fetchall():
+    if not (k[1] == "EF" or k[1] == "Q1" or k[1] == "Q2"):
+        stundenZeiten.addRoot(root("",k[1] + " " + k[2], k[0] + "+" + k[1], "kuZeiten"))
 
 # KlassenzuKurs
-klassenKurs = root("Welche Klassenliste wollen Sie sehen?", "Klassenliste", "klassenListe", "", "Klassen-\nlisten")
+klassenKurs = root("Welche Klassenliste wollen Sie sehen?", "Klassenlisten", "klassenListe", "", "Klassen-\nlisten")
 cur.execute("SELECT stufe FROM schueler;")
-clases = []
+clases = ["EF", "Q1", "Q2"]
 for s in cur.fetchall():
     if (not s[0] in clases):
         klassenKurs.addRoot(root("", s[0], s[0], "classList"))
@@ -121,7 +131,7 @@ for s in cur.fetchall():
 
 KlassenStundenplan = root("Welche Klassenstundenplan wollen Sie sehen?", "Klassen Stundenplan", "klassenStunden", "", "Klassen-\nlisten")
 cur.execute("SELECT stufe FROM schueler;")
-clases = []
+clases = ["EF", "Q1", "Q2"]
 for s in cur.fetchall():
     if (not s[0] in clases):
         KlassenStundenplan.addRoot(root("", s[0], s[0], "classStunden"))
@@ -133,7 +143,7 @@ OSRoot.addRoot(showStundenplan)
 OSRoot.addRoot(kursListen)
 
 OSRoot.addRoot(kursZeiten)
-USRoot.addRoot(kursZeiten)
+USRoot.addRoot(stundenZeiten)
 
 USRoot.addRoot(klassenKurs)
 USRoot.addRoot(KlassenStundenplan)
@@ -172,7 +182,6 @@ def selectKursTeilnehmer(name):
         ON schuelerKurs.name = kurse.name AND schuelerKurs.stufe = kurse.stufe
     WHERE kurse.name = '""" +  name[0] + """' AND kurse.stufe = '""" +  name[1] + """';
     """)
-    
     print(tabulate(cur.fetchall(), headers=["Vorname", "Nachname"] , tablefmt="pretty"))
 
 # Zum Abrufen der Klassenlisten
