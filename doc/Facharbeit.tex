@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel} 
 \usepackage{csquotes}
+
+%\author{Frederik Folkers}
 %fügt draft hinzu
 %\usepackage[pages=all, color=black, position={current page.south}, placement=bottom, scale=1, opacity=1, vshift=5mm]{background}
 \usepackage[top=2.5cm, bottom=2cm, right=2.5cm, left=2.5cm]{geometry} % full-width
@@ -70,8 +72,8 @@
 %	urlcolor=cyan, 
 %	linkcolor=blue, 
 	pdfauthor={Frederik Folkers},
-	pdftitle={A simple article template},
-	pdfsubject={A simple article template},
+	pdftitle={Entwicklung und Implementation einer Datenbank anhand einer Schulkursbelegung},
+	pdfsubject={Datenbanken},
 	pdfkeywords={article, template, simple},
 	pdfproducer={LaTeX},
 	pdfcreator={pdflatex}
@@ -178,11 +180,11 @@ sorting=ynt
 	\subsubsection{Hierarchisch}
 	\label{sec:hierdb}
 	
-	\begin{wrapfigure}{r}{4cm}
-	\vspace{-13pt}
-	\includegraphics[width=4cm]{vertretungTree.png}
-	\vspace{-30pt}
-	\caption{Vertre\-tungsplan Struktur}\label{fig:verTree}
+	\begin{wrapfigure}{r}{6cm}
+	\vspace{-28pt}
+	\includegraphics[width=6cm]{vStruk.pdf}
+	\vspace{-45pt}
+	\caption{Struktur des Vertretungsplans}\label{fig:verTree}
 	\end{wrapfigure}
 	Ein normales Ordnersystem kann als Datenbankstruktur genutzt werden. Dabei handelt es sich um eine näherungsweise hierarchische Datenbank. Die Informationen werden sehr leicht in Gruppen (durch Unterordner) eingeteilt. Beispiel für die Anwendung einer solchen Struktur ist mein Vertretungsplan. Diesen habe ich als Alternative zu dem normalen Vertretungsplan programmiert. Ich konnte so einige stilistische Verbesserungen einbauen. In der neuen Struktur hat jede Klasse bzw. Stufe ein eigenes Verzeichnis. Dadurch müssen sich die Schüler nicht mehr alle anderen Vertretungen angucken.  Abbildung~\ref{fig:verTree} zeigt die Datenbankstruktur, welche in Form eines Dateisystems angelegt wurde. In jedem Ordner ist eine csv-Datei, in welcher die Daten von der entsprechenden Klasse oder Stufe gespeichert sind. Beiliegend zu jeder csv-Datei ist auch noch eine HTML-Seite. Die beiden Dateien enthalten also grundsätzlich die gleichen Informationen, aber die HTML-Seite ist für Menschen und das csv-Dokument für Maschinen. Ein Vorteil in diesem Fall ist, dass dadurch Daten und Anzeige getrennt sind. So eine Datenbank entspricht aber, wie im ersten Satz angedeutet, nicht in allen Punkten einer hierarchischen Datenbankstruktur. Es gibt zwei große Unterschiede. Wenn in sich in einem Ordnersystem ein leerer Ordner befindet, wird dieser nicht zu einem Blatt (einer Datei). Dies wäre in einer hierarchischen Datenbankstruktur der Fall. Ein weiterer Unterschied ist, dass es keine Beziehungen zwischen den Dateien geben kann.\footnote{vgl. \cite{hierDbWiki}}\\
 Dieses Modell hat allerdings auch einige Nachteile, weswegen die Nutzung dieser Struktur bei großen Datenmengen nur eingeschränkt möglich ist. Ein Nachteil ist, dass die Datenbank nur auf einen Anwendung optimiert werden kann\footnote{vgl. \cite{Jarosch2010} 3.2 Das hierarchische Datenbank-Modell}. Wenn z.B. mein Vertretungsplan nach Tag und nicht nach Klasse sortiert werden soll, müsste die Datenverwaltungssoftware in jeden Ordner reingehen und diesen die entsprechenden Informationen auslesen und abspeichern. Dies ist langsam und leistungsintensiv. Ich habe dieses Problem gelöst, indem ich einen zweiten Ordner für alle eingebaut habe. Das ist allerdings durch die Dopplung nicht sehr effizient. \\
@@ -286,9 +288,9 @@ Diese Beziehung beschreibt eine Tabelle, in der die Stunden ihren Zeiten zugeord
 
 	\subsection{Datenbank erstellen}
 	\label{sec:dbErst}
-	Die in \ref{sec:dbArten} besprochenen Unterschiede sprechen klar dafür, dass ich eine SQLite Datenbank verwenden sollte. Aber, da ich mehr Erfahrung in MySQL habe, habe ich beides gemacht. Die SQL-Befehle habe ich in der offiziellen MySQL-Dokumentation nachgeschaut\footnote{vgl. \cite{sqlDocu}}. Da SQLite auch mit SQL funktioniert konnte ich die Befehle im Grunde übernehmen. \\ 
+	Die im Abschnitt \ref{sec:dbArten} besprochenen Unterschiede sprechen klar dafür, dass ich eine SQLite Datenbank verwenden sollte. Aber, da ich mehr Erfahrung in MySQL habe, habe ich beides gemacht. Die SQL-Befehle habe ich in der offiziellen MySQL-Dokumentation nachgeschaut\footnote{vgl. \cite{sqlDocu}}. Da SQLite auch mit SQL funktioniert konnte ich die Befehle im Grunde übernehmen. \\ 
 
-Zunächst habe ist eine neue Datenbank erstellt. In SQLite ist dies nicht nötig, da es nur einen Datenbank gibt. Damit es keine Zeichenfehler gibt habe ich ü gegen ue ersetzt.
+Zunächst habe ist eine neue Datenbank erstellt. In SQLite ist dies nicht nötig, da es nur eine Datenbank gibt. Damit es keine Zeichenfehler gibt habe ich „ü“ gegen „ue“ ersetzt.
 	\begin{lstlisting}[ language=SQL,
 	                    deletekeywords={IDENTITY},
 	                    deletekeywords={[2]INT},

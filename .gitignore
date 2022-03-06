@@ -1,4 +1,3 @@
-*.pdf
 doc/Facharbeit.aux
 doc/Facharbeit.bbl
 doc/Facharbeit.bcf
@@ -8,10 +7,8 @@ doc/Facharbeit.out
 doc/Facharbeit.run.xml
 doc/Facharbeit.toc
 doc/Facharbeit.synctex.gz
-doc/Facharbeit.bib
-doc/Facharbeit.bib
-doc/Facharbeit.bib
 doc/Facharbeit.dvi
-doc/Facharbeit.bib
 !doc/Facharbeit.pdf
-*.graphml
+Info_10_Facharbeit .pdf
+Kurse groß_Q1.pdf
+st1.pdf
