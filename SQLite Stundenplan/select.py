@@ -195,7 +195,7 @@ def getKlassenStunden(klasse):
     SELECT kurse.name, stunden.tag, stunden.vonS, stunden.bisS
     FROM kurse
         JOIN stundenKurs
-        ON kurse.name = stundenKurs.name
+        ON kurse.name = stundenKurs.name AND kurse.stufe = stundenKurs.stufe
         JOIN stunden
         ON stundenKurs.StId = stunden.StId
     WHERE kurse.stufe = '""" + klasse + """' ORDER BY  stunden.tag;
@@ -209,7 +209,7 @@ def stundenZeiten(name):
     SELECT stunden.tag, stunden.vonS, stunden.bisS
     FROM kurse
         JOIN stundenKurs
-        ON kurse.name = stundenKurs.name
+        ON kurse.name = stundenKurs.name AND kurse.stufe = stundenKurs.stufe
         JOIN stunden
         ON stundenKurs.StId = stunden.StId
     WHERE kurse.name = '""" +  name[0] + """' AND kurse.stufe = '""" +  name[1] + """';
@@ -229,7 +229,7 @@ def selectTabelle(name):
 while True:
     # Ask the User what to do
     choice = mainRoot.askOption()
-    print(choice)
+    #print(choice)
     if choice[0] == "back":
         print("Quitting...")
         quit()
